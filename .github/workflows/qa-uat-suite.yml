@@ -1,0 +1,127 @@
+name: 🔍 ATLANTYDE QA/UAT Suite 
+# 🔍 ATLANTYDE QA/UAT Suite Dynamic Web Analysis Suite & Commit Review BOT
+
+on:
+  # This workflow is triggered on push to the main branch and on a schedule
+  # It runs every day at 7 UTC
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+    paths:
+      - 'docs/qa-uat-report/generated/**'
+      - 'scripts/playwright_crawl.py'
+      - 'scripts/generate_sitemap.py'
+      - 'README.md'
+      - '.github/workflows/qa-uat-playwright.yml'
+  workflow_dispatch:  # Allows manual triggering from the Actions tab
+  push:
+    branches: [main]
+    paths:
+      - 'docs/qa-uat-report/generated/**'
+      - 'scripts/playwright_crawl.py'
+      - 'scripts/generate_sitemap.py'
+      - 'README.md'
+      - '.github/workflows/qa-uat-playwright.yml'
+  schedule:
+    - cron: '0 7 * * *'  # Run every day at 7 UTC
+
+permissions:
+  contents: write  # Required for committing changes to the repository
+  pull-requests: write  # Required for creating pull requests
+  actions: read  # Required for using actions
+  checks: write  # Required for creating check runs
+  statuses: write  # Required for creating commit statuses
+  issues: write  # Required for creating issues
+  deployments: write  # Required for creating deployments
+  pages: write  # Required for deploying to GitHub Pages
+  repository-projects: write  # Required for managing repository projects
+  discussions: write  # Required for managing discussions
+  packages: write  # Required for managing packages
+
+jobs:
+  qa-uat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python with cache
+        uses: ./.github/actions/setup-python-cached
+
+      - name: Install QA tools
+        run: |
+          playwright install chromium
+
+      - name: Crawl and convert pages
+        run: |
+          python scripts/playwright_crawl.py
+
+      - name: Commit QA outputs (sitemap, extracted docs)
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add docs/sitemap.*
+          git commit -m "📄 QA/UAT: Sitemap y documentación extraída" || echo "No hay cambios"
+          git push || echo "Push no necesario"
+
+  validate-and-generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Generate Sitemap from mkdocs.yml
+        run: python scripts/generate_sitemap_from_mkdocs.py
+
+      - name: Check for changes
+        run: |
+          git diff --exit-code || echo "::warning ::Sitemap actualizado. Por favor, añade este cambio al PR."
+
+
+  extract-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (por si queremos guardar resultados en repo)
+        uses: actions/checkout@v3
+
+      - name: Setup Python with cache
+        uses: ./.github/actions/setup-python-cached
+
+      - name: Extract and Analyze Pages
+        run: |
+          python scripts/analyze_website.py
+
+      - name: Upload markdown output
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-uat-generated-docs
+          path: extracted_docs/
+
+  commit-results:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Download artifacts from QA/UAT
+        uses: actions/download-artifact@v3
+        with:
+          name: qa-uat-playwright-md
+          path: docs/qa-uat-report/generated
+
+      - name: Commit QA/UAT markdown pages
+        run: |
+          git add docs/qa-uat-report/generated/*.md
+          git commit -m "docs: actualiza reportes QA/UAT desde Playwright" || echo "No hay cambios"
+          git push
+        

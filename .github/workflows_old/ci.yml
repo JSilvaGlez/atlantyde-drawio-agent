@@ -1,4 +1,4 @@
-name: 🛠️ CI Atlantyde SDLC Build & Test Docker
+name: Atlantyde Drawio Agent CI
 
 on:
   push:
@@ -13,6 +13,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+    - run: docker build -t atlantyde/drawio-agent .
+
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -40,4 +42,3 @@ jobs:
       with:
         name: exported-diagrams
         path: diagrams
-
