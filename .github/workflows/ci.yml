@@ -16,24 +16,24 @@ jobs:
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
-
-    - name: Build Docker image
-      run: |
-        docker build -t atlantyde/drawio-agent .
-
-    - name: Test export script
-      # El comando script abre un pseudo-TTY para el comando Docker.
-      # docker run --rm -v /diagrams:/home/drawio/diagrams -it atlantyde/drawio-agent export_all.sh
-      run: |
-        mkdir -p diagrams
-        cp templates/base.drawio diagrams/test.drawio
-        script -qfc 'docker run --rm -i -v "${{ github.workspace }}/diagrams:/home/drawio/diagrams" atlantyde/drawio-agent export_all.sh' /dev/null
-
+    
     - name: Fix permissions
       run: |
         chmod -c -R +rX "_site/" | while read line; do 
           echo "::warning title=Invalid file permissions automatically fixed::$line"; 
         done
+
+    - name: Build Docker image
+      run: |
+        docker build -t atlantyde/drawio-agent .
+
+    # El comando script abre un pseudo-TTY para el comando Docker.
+    # docker run --rm -v /diagrams:/home/drawio/diagrams -it atlantyde/drawio-agent export_all.sh
+    - name: Test export script
+      run: |
+        mkdir -p diagrams
+        cp templates/base.drawio diagrams/test.drawio
+        script -qfc 'docker run --rm -i -v "${{ github.workspace }}/diagrams:/home/drawio/diagrams" atlantyde/drawio-agent export_all.sh' /dev/null
         
     - name: Archive exported files
       uses: actions/upload-pages-artifact@v3
