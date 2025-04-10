@@ -4,6 +4,19 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Deploy MkDocs to GitHub Pages'
+        required: true
+        default: 'yes'
+        type: choice
+        options:
+          - yes
+          - no
 
 permissions:
   contents: write
@@ -26,4 +39,4 @@ jobs:
 
       - name: Build and Deploy 📦
         run: |
-          mkdocs gh-deploy --force
+          mkdocs gh-deploy --force        
