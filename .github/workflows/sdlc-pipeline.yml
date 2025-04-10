@@ -73,8 +73,9 @@ jobs:
       run: |
         python3 ./process_shellcheck.py shellcheck_result.json reporte_informe.html
 
+    ## Se genera un reporte HTML infográfico.
     - name: Subir reporte HTML como artefacto
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: shellcheck-report-html
         path: reporte_informe.html
