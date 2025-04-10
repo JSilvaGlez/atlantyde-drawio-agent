@@ -52,7 +52,6 @@ jobs:
         run: |
           python -m playwright install chromium
       
-
       - name: Crawl and convert pages
         run: |
           python scripts/playwright_crawl.py
