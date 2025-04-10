@@ -131,17 +131,17 @@ jobs:
 
           if [ -z "$ARTIFACT_ID" ]; then
             echo "⚠️ Artifact 'qa-uat-playwright-md' NO encontrado. Se omite la descarga."
-            echo "deploy_required=false" >> $GITHUB_ENV
             exit 0
           fi
 
           echo "✅ Artifact encontrado. Descargando..."
           mkdir -p docs/qa-uat-report/generated
-          gh api -H "Accept: application/vnd.github+json" \
-            -H "Authorization: token $GH_TOKEN" \
-            -X GET "/repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip" \
-            --output artifact.zip
 
+          DOWNLOAD_URL=$(gh api -H "Accept: application/vnd.github+json" \
+            -X GET "/repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID" \
+            | jq -r '.archive_download_url')
+
+          curl -L -H "Authorization: token $GH_TOKEN" "$DOWNLOAD_URL" -o artifact.zip
           unzip -o artifact.zip -d docs/qa-uat-report/generated/
           echo "📦 Artifact extraído"
 
@@ -155,21 +155,9 @@ jobs:
             git add docs/qa-uat-report/generated/*.md
             git commit -m "docs: actualiza reportes QA/UAT desde Playwright" || echo "ℹ️ No hay cambios nuevos."
             git push || echo "🔃 Push no necesario o ya actualizado."
-          else
-            echo "⚠️ No se encontraron archivos .md. Omitiendo commit."
-          fi
-
-      - name: 🧠 Evaluar cambios y existencia de archivos .md
-        id: check_changes
-        run: |
-          CHANGES=$(git diff --name-only HEAD^ HEAD -- docs/ mkdocs.yml)
-          HAS_MD=$(ls docs/qa-uat-report/generated/*.md 2>/dev/null || true)
-
-          if [[ -n "$CHANGES" || -n "$HAS_MD" ]]; then
-            echo "✅ Cambios detectados o archivos .md generados."
             echo "deploy_required=true" >> $GITHUB_ENV
           else
-            echo "ℹ️ Sin cambios relevantes ni archivos .md."
+            echo "⚠️ No se encontraron archivos .md. Omitiendo commit y despliegue."
             echo "deploy_required=false" >> $GITHUB_ENV
           fi
 
@@ -177,9 +165,8 @@ jobs:
         run: echo "📦 deploy_required=${{ env.deploy_required }}"
 
       - name: 🚀 Desplegar si hay cambios
-        if: ${{ env.deploy_required }} == 'true' 
+        if: ${{ env.deploy_required }} == 'true'
         run: |
           echo "📡 Desplegando documentación actualizada a GitHub Pages..."
           pip install mkdocs-material
           mkdocs gh-deploy --force
-          echo "✅ Despliegue completado."
