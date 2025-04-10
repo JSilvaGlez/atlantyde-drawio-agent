@@ -41,3 +41,4 @@ with sync_playwright() as p:
             print(f"⚠️ Error procesando {url}: {e}")
 
     browser.close()
+

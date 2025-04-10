@@ -1,0 +1,32 @@
+name: Commit QA/UAT Docs to Repository
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  commit-results:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Download artifacts from QA/UAT
+        uses: actions/download-artifact@v4
+        with:
+          name: qa-uat-playwright-md
+          path: docs/qa-uat-report/generated
+
+      - name: Commit QA/UAT markdown pages
+        run: |
+          git add docs/qa-uat-report/generated/*.md
+          git commit -m "docs: actualiza reportes QA/UAT desde Playwright" || echo "No hay cambios"
+          git push
