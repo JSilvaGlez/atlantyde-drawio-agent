@@ -44,7 +44,8 @@ nav:
   - User Guide:
       - Overview: user-guide/user-guide-overview.md
       - Usage: usage.md
-  - CI/CD: ci-cd.md
+  - Colabora: 
+      - Compliance SDLC: ci-cd.md
   - Security: security.md
   - GitHub Pages: github-pages.md
   - QA/UAT Report:

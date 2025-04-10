@@ -38,4 +38,22 @@ Tu colaboración es bienvenida. Aquí no solo documentamos: **evolucionamos junt
 
 ---
 
+## 🔁 Automatización CI/CD Inteligente
+
+Atlantyde Diagram Agent implementa flujos CI/CD optimizados:
+
+- ✅ Reutilización de entornos Python y dependencias
+- ♻️ Instalación con cache para ahorro energético
+- 🧠 Validaciones QA/UAT y extracción de contenidos dinámicos
+- 📄 Actualización automática del sitemap tras PRs exitosos
+
+> Toda mejora CI/CD contribuye al bienestar digital colectivo y reduce la huella energética de cada cambio.
+
+---
+
+## 👥 Contribuye con CI/CD
+
+¿Tienes experiencia en automatización, rendimiento o accesibilidad?  
+Consulta nuestras [plantillas de Pull Requests](.github/PULL_REQUEST_TEMPLATE) y mejora la infraestructura de pruebas y despliegue para todos.
+
 📫 ¿Quieres colaborar? Haz un [Pull Request](https://github.com/JSilvaGlez/atlantyde-drawio-agent/pulls) o abre una [Issue](https://github.com/JSilvaGlez/atlantyde-drawio-agent/issues).

@@ -1,0 +1,33 @@
+name: 🔍 QA/UAT Composite Validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  qa-uat:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python with cache
+        uses: ./.github/actions/setup-python-cached
+
+      - name: Install QA tools
+        run: |
+          pip install markdownify playwright beautifulsoup4
+          playwright install chromium
+
+      - name: Crawl and convert pages
+        run: |
+          python scripts/playwright_crawl.py
+
+      - name: Commit QA outputs (sitemap, extracted docs)
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add docs/sitemap.*
+          git commit -m "📄 QA/UAT: Sitemap y documentación extraída" || echo "No hay cambios"
+          git push || echo "Push no necesario"
