@@ -42,13 +42,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Inicializar CodeQL
+      - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
-        with:
-          languages: 'python'
+        # with:
+          # Si tienes un archivo de configuración de CodeQL, puedes especificarlo aquí
+          # config-file: ./path/to/codeql-config.yml
+
+      - name: Autodetect CodeQL languages
+        uses: github/codeql-action/autodetect@v3
 
       - name: Análisis estático con CodeQL
         uses: github/codeql-action/analyze@v3
+        with:
+          output: results/codeql.sarif
+        env:
+          CODEQL_ACTION_SARIF_RESULTS_OUTPUT_DIR: results
+          CODEQL_ACTION_SARIF_RESULTS_OUTPUT_FILE: results/codeql.sarif
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Instalar dependencias para ShellCheck
         run: |
@@ -62,7 +72,7 @@ jobs:
 
       - name: Convertir JSON de ShellCheck a SARIF
         run: |
-          python3 ./scripts/convert_to_sarif.py shellcheck_result.json shellcheck.sarif
+          python3 ./scripts/convert_to_sarif.py shellcheck_result.json results/shellcheck.sarif
 
       - name: Subir SARIF de CodeQL
         uses: github/codeql-action/upload-sarif@v3
