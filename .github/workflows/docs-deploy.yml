@@ -19,19 +19,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/setup-python-cached
-      - run: pip install mkdocs-material
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Set up Python 🐍
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install MkDocs Material 📚
-        run: |
-          pip install mkdocs-material
+      - name: "Set up Python Cached by requeriments 🐍"
+        uses: ./.github/actions/setup-python-cached
 
       - name: Deploy to GitHub Pages 🚀
         run: |
