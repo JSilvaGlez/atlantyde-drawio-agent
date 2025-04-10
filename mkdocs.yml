@@ -1,0 +1,9 @@
+site_name: Atlantyde Diagram Agent
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - CI/CD: ci-cd.md
+  - Security: security.md
+  - GitHub Pages: github-pages.md
+theme:
+  name: material

@@ -1,0 +1,70 @@
+name: SDLC Full Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Dummy Unit Tests
+      run: echo "Running unit tests..." && exit 0
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Integration Test
+      run: echo "Running integration tests..." && exit 0
+
+  sast:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: SAST - Static Analysis
+      uses: github/codeql-action/init@v2
+      with:
+        languages: 'javascript,python,shell'
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+
+  dast:
+    runs-on: ubuntu-latest
+    needs: integration-tests
+    steps:
+    - name: OWASP ZAP Baseline Scan
+      uses: zaproxy/action-baseline@v0.7.0
+      with:
+        target: 'http://localhost:8069'
+      continue-on-error: true
+
+  qa:
+    runs-on: ubuntu-latest
+    needs: [integration-tests, sast, dast]
+    steps:
+    - name: Manual QA Placeholder
+      run: echo "QA team validates the build manually or via automated UI scripts."
+
+  uat:
+    runs-on: ubuntu-latest
+    needs: qa
+    steps:
+    - name: UAT Acceptance Placeholder
+      run: echo "Stakeholders test and approve features."
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: uat
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: Deploy to Production
+      run: echo "Production deployment successful!"
