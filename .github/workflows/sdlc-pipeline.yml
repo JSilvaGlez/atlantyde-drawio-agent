@@ -48,9 +48,6 @@ jobs:
           # Si tienes un archivo de configuración de CodeQL, puedes especificarlo aquí
           # config-file: ./path/to/codeql-config.yml
 
-      - name: Autodetect CodeQL languages
-        uses: github/codeql-action/autodetect@v3
-
       - name: Análisis estático con CodeQL
         uses: github/codeql-action/analyze@v3
         with:
@@ -118,10 +115,9 @@ jobs:
       run: echo "Stakeholders test and approve features."
 
   deploy-production:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: uat
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
     - name: Deploy to Production
       run: echo "Production deployment successful!"
