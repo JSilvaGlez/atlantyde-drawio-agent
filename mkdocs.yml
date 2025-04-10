@@ -13,6 +13,12 @@ plugins:
 extra_css:
   - assets/css/extra.css
 
+
+# extra_javascript:
+#   - assets/js/extra.js
+#   - https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js
+#   - https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.0/mermaid.min.js
+
 theme:
   name: material
   logo: assets/images/logo-atlantyde.svg

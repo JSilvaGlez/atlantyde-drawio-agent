@@ -8,20 +8,29 @@
   height: 220px;
 }
 
-/* Fondo permanente con Poseidón */
-body {
-  background: url('../images/A_digital_painting_in_a_semi-realistic_style_with_.png') no-repeat center center fixed;
-  background-size: cover;
-  background-attachment: fixed;
+/* Contenedor principal: mejora contraste con glassmorphism */
+.md-container {
+  background-color: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 1.2rem;
+  color: #111; /* Contraste asegurado */
 }
 
-/* Fondo blanco semitransparente para el contenido */
-.md-container {
-  background-color: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(2px);
-  border-radius: 12px;
-  padding: 1rem;
+/* Fondo permanente con Poseidón */
+body {
+  background: url('../images/poseidon-bg.png') no-repeat center center fixed;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
 }
+
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
 
 .md-header__inner {
   background-color: rgba(0,0,0,0.5);
