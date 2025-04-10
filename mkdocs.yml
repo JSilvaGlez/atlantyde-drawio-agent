@@ -1,9 +1,47 @@
 site_name: Atlantyde Diagram Agent
+
+site_description: >
+  Plataforma RPA para la automatización y documentación visual con DrawIO,
+  ShellCheck y GitHub Actions. Proyecto open-source impulsado por Atlantyde.
+
+site_author: Atlantyde
+site_url: https://atlantyde.github.io/atlantyde-drawio-agent/
+
+plugins:
+  - search
+
+extra_css:
+  - assets/css/extra.css
+
+theme:
+  name: material
+  logo: assets/images/logo-atlantyde.svg
+  favicon: assets/images/favicon.ico
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: light blue
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: cyan
+      accent: teal
+  features:
+    - navigation.tabs
+
 nav:
   - Home: index.md
-  - Usage: usage.md
+  - Getting Started:
+      - Overview: getting-started/overview.md
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quick-start.md
+  - User Guide:
+      - Overview: user-guide/user-guide-overview.md
+      - Usage: usage.md
   - CI/CD: ci-cd.md
   - Security: security.md
   - GitHub Pages: github-pages.md
-theme:
-  name: material
+
+
+
+

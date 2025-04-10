@@ -8,6 +8,21 @@
   height: 220px;
 }
 
+/* Fondo permanente con Poseidón */
+body {
+  background: url('../images/A_digital_painting_in_a_semi-realistic_style_with_.png') no-repeat center center fixed;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Fondo blanco semitransparente para el contenido */
+.md-container {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(2px);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
 .md-header__inner {
   background-color: rgba(0,0,0,0.5);
   color: white;

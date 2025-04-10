@@ -1,45 +1,47 @@
-# 🚀 Bienvenido a Atlantyde Diagram Agent
+# 🌊 Atlantyde Diagram Agent
 
-Atlantyde Diagram Agent es una iniciativa colaborativa que une automatización RPA, visualización con DrawIO y DevSecOps para documentar, analizar y transformar procesos complejos desde un enfoque ágil, accesible y 100% open source.
+![Banner](assets/images/A_website_banner_for_Atlantyde_Diagram_Agent_featu.png)
 
----
-
-## 🧭 ¿Qué puedes encontrar aquí?
-
-- 🔧 **Guías prácticas** para instalar, usar y personalizar el agente.
-- 📊 **Documentación técnica** sobre scripts, pipelines CI/CD, seguridad y rendimiento.
-- 📘 **Tutoriales paso a paso** para generar diagramas automáticos con DrawIO.
-- 🧪 **Batería de tests** y ejemplos reales que puedes adaptar a tus proyectos.
-- 🤝 **Secciones para contribuir**, sugerencias de mejora y roadmap colaborativo.
+> Automatización. Visualización. Seguridad. Colaboración.
+>
+> **Atlantyde Diagram Agent** es un proyecto de código abierto que transforma procesos técnicos y documentales en flujos visuales, seguros y auditables gracias a la integración de herramientas como DrawIO, ShellCheck, GitHub Actions y DevSecOps.
 
 ---
 
-## 🤖 ¿Qué es Atlantyde Diagram Agent?
+## 🚀 ¿Qué puedes hacer con Atlantyde?
 
-Es un contenedor inteligente que permite:
-
-- Exportar automáticamente archivos `.drawio` a PDF.
-- Integrarse en flujos DevOps con GitHub Actions.
-- Generar reportes de ShellCheck en SARIF y HTML visual.
-- Servir como agente RPA de generación documental para procesos IT y no IT.
-
----
-
-## 🌐 Documentación por secciones
-
-Explora la navegación lateral para acceder a cada módulo de la documentación.
-Cada página cuenta con un pie de página colaborativo que te invita a expandirla con tu experiencia.
+- ✨ Exportar diagramas `.drawio` automáticamente a PDF
+- 🔍 Analizar scripts Bash con ShellCheck y obtener reportes en SARIF y HTML
+- 📊 Documentar visualmente pipelines, infraestructuras o sistemas complejos
+- 🤖 Automatizar la generación de documentación en CI/CD
+- 🔐 Asegurar la trazabilidad y cumplimiento SDLC en cada fase
 
 ---
 
-## ❤️ ¿Quieres colaborar?
+## 🧭 Navegación Rápida
 
-- Lee la [Guía de Contribución](contributing.md).
-- Abre un issue o mejora una sección existente.
-- Añade ejemplos, tutoriales o correcciones.
-
-> Juntos hacemos crecer el conocimiento abierto.
+| Sección              | Descripción                                                  |
+|----------------------|--------------------------------------------------------------|
+| [Getting Started](getting-started/overview.md) | Configura el agente paso a paso                        |
+| [User Guide](user-guide/user-guide-overview.md) | Aprende a usar las funciones clave                    |
+| [Features](user-guide/features.md) | Descubre lo que hace único a Atlantyde                |
+| [Usage](usage.md) | Guía de uso básica y avanzada                          |
+| [CI/CD](ci-cd.md) | Automatiza la integración y el despliegue             |
+| [Security](security.md) | Refuerza la ciberseguridad en tus procesos         |
+| [GitHub Pages](github-pages.md) | Publica documentación viva directamente desde GitHub  |
 
 ---
 
-Atlantyde © 2025 | Código abierto para una digitalización más humana.
+## 💡 ¿Por qué "Atlantyde"?
+
+Inspirado en el mito de la Atlántida, **este proyecto busca recuperar la belleza, el orden y la colaboración entre humanos y sistemas inteligentes**. Una documentación viva que une lo técnico y lo visual.
+
+---
+
+## 🤝 ¿Quieres contribuir?
+
+Consulta la [Guía de Contribución](contributing.md) para colaborar creando documentación, mejoras técnicas o visuales.
+
+---
+
+Atlantyde © 2025 • _Software libre para una documentación poderosa y accesible._
