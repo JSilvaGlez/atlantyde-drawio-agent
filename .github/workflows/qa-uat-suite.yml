@@ -45,7 +45,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Python with cache
+      - name: Set up Python Cached by requeriments 🐍
         uses: ./.github/actions/setup-python-cached
 
       - name: Install QA tools
@@ -89,7 +89,7 @@ jobs:
       - name: Checkout (por si queremos guardar resultados en repo)
         uses: actions/checkout@v3
 
-      - name: Setup Python with cache
+      - name: Set up Python Cached by requeriments 🐍
         uses: ./.github/actions/setup-python-cached
 
       - name: Extract and Analyze Pages

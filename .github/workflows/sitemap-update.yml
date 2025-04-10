@@ -11,9 +11,11 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-python-cached
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
+      - name: Set up Python Cached by requeriments 🐍
+        uses: ./.github/actions/setup-python-cached
       - name: Generate Sitemap from mkdocs.yml
         run: python scripts/generate_sitemap_from_mkdocs.py
 
@@ -21,7 +23,7 @@ jobs:
         run: |
           git diff --exit-code || echo "::warning ::Sitemap actualizado. Por favor, añade este cambio al PR."
 
-      - name: Commit updated sitemap
+      - name: 📌 Commit updated sitemap
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
