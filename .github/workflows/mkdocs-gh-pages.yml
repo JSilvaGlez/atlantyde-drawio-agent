@@ -7,19 +7,10 @@ on:
     paths:
       - 'docs/**'
       - 'mkdocs.yml'
-  workflow_dispatch:
-    inputs:
-      deploy:
-        description: 'Deploy MkDocs to GitHub Pages'
-        required: true
-        default: 'yes'
-        type: choice
-        options:
-          - yes
-          - no
+  workflow_dispatch:  # Permite lanzarlo manualmente desde la pestaña Actions
 
 permissions:
-  contents: write
+  contents: write  # 🔐 Requerido para mkdocs gh-deploy
 
 jobs:
   deploy:
@@ -28,15 +19,15 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Set up Python 🐍
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
-      - name: Install MkDocs Material
+      - name: Install MkDocs Material 📚
         run: |
           pip install mkdocs-material
 
-      - name: Build and Deploy 📦
+      - name: Deploy to GitHub Pages 🚀
         run: |
-          mkdocs gh-deploy --force        
+          mkdocs gh-deploy --force
