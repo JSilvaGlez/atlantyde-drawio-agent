@@ -48,9 +48,10 @@ jobs:
       - name: Set up Python Cached by requeriments 🐍
         uses: ./.github/actions/setup-python-cached
 
-      - name: Install QA tools
+      - name: Install QA Playwright browser
         run: |
-          playwright install chromium
+          python -m playwright install chromium
+      
 
       - name: Crawl and convert pages
         run: |
