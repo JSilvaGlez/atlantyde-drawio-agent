@@ -1,0 +1,30 @@
+name: Validate and Generate Sitemap from MkDocs
+
+on:
+  pull_request:
+    paths:
+      - 'mkdocs.yml'
+      - 'docs/**/*.md'
+
+jobs:
+  validate-and-generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Generate Sitemap from mkdocs.yml
+        run: python scripts/generate_sitemap_from_mkdocs.py
+
+      - name: Check for changes
+        run: |
+          git diff --exit-code || echo "::warning ::Sitemap actualizado. Por favor, añade este cambio al PR."
