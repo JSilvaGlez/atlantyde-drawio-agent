@@ -1,21 +1,15 @@
-## Despliegue en GitHub Pages con MkDocs
+# Github Pages
 
-1. Asegúrate de tener `mkdocs` y `mkdocs-material` instalados:
+¡Bienvenido! Este documento forma parte de la documentación técnica y estratégica del proyecto **Atlantyde Diagram Agent**.
 
-```bash
-pip install mkdocs mkdocs-material
-```
+💡 _Colabora ampliando esta sección con ejemplos, guías y buenas prácticas para asegurar el cumplimiento SDLC y la calidad técnica del producto._
 
-2. Lanza el servidor local para revisar:
+---
 
-```bash
-mkdocs serve
-```
 
-3. Publica en GitHub Pages usando:
+---
 
-```bash
-mkdocs gh-deploy --clean
-```
+🔧 _Esta sección forma parte de la documentación técnica de **Atlantyde Diagram Agent**, una iniciativa para automatizar, documentar y visualizar procesos complejos mediante DrawIO y RPA.  
+Colabora ampliando esta página o enlazando ejemplos que mejoren la experiencia de adopción._
 
-Esto desplegará el sitio web en la rama `gh-pages` del repositorio actual. Asegúrate de habilitar GitHub Pages desde esa rama en la configuración del repositorio.
+➡️ Revisa el archivo `mkdocs.yml` para conocer cómo se navega este contenido desde GitHub Pages.

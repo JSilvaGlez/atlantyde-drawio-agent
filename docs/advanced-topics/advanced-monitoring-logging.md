@@ -1,4 +1,4 @@
-# Security
+# Advanced Monitoring Logging
 
 ¡Bienvenido! Este documento forma parte de la documentación técnica y estratégica del proyecto **Atlantyde Diagram Agent**.
 
