@@ -67,7 +67,7 @@ jobs:
         python3 process_shellcheck.py shellcheck_result.json reporte_informe.html
 
     - name: Subir reporte HTML como artefacto
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-pages-artifact@v3
       with:
         name: shellcheck-report-html
         path: reporte_informe.html
