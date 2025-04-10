@@ -1,7 +1,18 @@
-name: QA/UAT Dynamic Web Crawler
+name: QA/UAT Dynamic Web Analysis & Commit
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 7 * * *'  # Run every day at 7 UTC
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/qa-uat-report/generated/**'
+      - 'scripts/playwright_crawl.py'
+      - 'scripts/generate_sitemap.py'
+      - 'README.md'
+      - '.github/workflows/qa-uat-playwright.yml'
 
 permissions:
   contents: write
@@ -24,13 +35,45 @@ jobs:
           pip install playwright markdownify
           playwright install chromium
 
-      - name: Crawl and extract website
+      - name: Crawl and extract website to Markdown
         run: |
           python scripts/playwright_crawl.py
 
       - name: Upload extracted docs
         uses: actions/upload-artifact@v4
-        
         with:
           name: qa-uat-playwright-md
           path: extracted_docs/
+
+  commit-results:
+    runs-on: ubuntu-latest
+    needs: qa-crawl
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Download artifact from crawler
+        uses: actions/download-artifact@v4
+        with:
+          name: qa-uat-playwright-md
+          path: docs/qa-uat-report/generated
+
+      - name: Generate index and sitemap
+        run: python scripts/generate_sitemap.py
+
+      - name: Commit QA/UAT markdown results to repo
+        run: |
+          git add docs/qa-uat-report/generated/
+          git commit -m "docs: update QA/UAT generated from Playwright" || echo "No changes"
+          git push
