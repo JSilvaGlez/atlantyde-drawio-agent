@@ -22,10 +22,12 @@ jobs:
         docker build -t atlantyde/drawio-agent .
 
     - name: Test export script
+      # El comando script abre un pseudo-TTY para el comando Docker.
+      # docker run --rm -v /diagrams:/home/drawio/diagrams -it atlantyde/drawio-agent export_all.sh
       run: |
         mkdir -p diagrams
         cp templates/base.drawio diagrams/test.drawio
-        docker run --rm -v ${{ github.workspace }}/diagrams:/home/drawio/diagrams -it atlantyde/drawio-agent export_all.sh
+        script -qfc 'docker run --rm -i -v "${{ github.workspace }}/diagrams:/home/drawio/diagrams" atlantyde/drawio-agent export_all.sh' /dev/null
 
     - name: Fix permissions
       run: |

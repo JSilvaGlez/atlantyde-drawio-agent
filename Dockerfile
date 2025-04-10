@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     libasound2 \
     libnss3 \
     libx11-xcb1 \
+    bsdutils \
     && useradd -ms /bin/bash drawio
 
 # Descarga e instalación robusta del paquete draw.io-desktop (versión 26.2.2)
