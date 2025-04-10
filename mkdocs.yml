@@ -47,6 +47,9 @@ nav:
   - CI/CD: ci-cd.md
   - Security: security.md
   - GitHub Pages: github-pages.md
+  - QA/UAT Report:
+      - Overview: qa-uat-report/overview.md
+
 
 
 
