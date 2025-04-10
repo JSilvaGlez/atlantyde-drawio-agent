@@ -1,0 +1,19 @@
+
+/* extra.css */
+.md-header {
+  background-image: url('A_website_banner_for_Atlantyde_Diagram_Agent_featu.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 220px;
+}
+
+.md-header__inner {
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  padding: 2rem;
+}
+
+.md-logo img {
+  height: 40px;
+}
