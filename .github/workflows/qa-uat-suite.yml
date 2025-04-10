@@ -76,6 +76,9 @@ jobs:
         with:
           python-version: 3.11
 
+      - name: Set up Python Cached by requeriments 🐍
+        uses: ./.github/actions/setup-python-cached
+
       - name: Generate Sitemap from mkdocs.yml
         run: python scripts/generate_sitemap_from_mkdocs.py
 
@@ -115,7 +118,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Download artifacts from QA/UAT
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: qa-uat-playwright-md
           path: docs/qa-uat-report/generated
