@@ -65,6 +65,7 @@ jobs:
           git push || echo "Push no necesario"
 
   validate-and-generate:
+    needs: [qa-uat]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -87,6 +88,7 @@ jobs:
 
 
   extract-content:
+    needs: [validate-and-generate]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (por si queremos guardar resultados en repo)
@@ -106,25 +108,60 @@ jobs:
           path: extracted_docs/
 
   commit-results:
+    needs: [qa-uat, extract-content]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Set up Git user
+      - name: Install jq and GitHub CLI
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          sudo apt-get update
+          sudo apt-get install -y jq gh
 
-      - name: Download artifacts from QA/UAT
-        uses: actions/download-artifact@v4
-        with:
-          name: qa-uat-playwright-md
-          path: docs/qa-uat-report/generated
+      - name: Check and download QA/UAT artifact
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔍 Buscando artifact: qa-uat-playwright-md..."
+          ARTIFACT_ID=$(gh api repos/${{ github.repository }}/actions/artifacts \
+            | jq -r '.artifacts[] | select(.name=="qa-uat-playwright-md") | .id' | head -n 1)
+
+          if [ -z "$ARTIFACT_ID" ]; then
+            echo "⚠️ Artifact 'qa-uat-playwright-md' NO encontrado. Se omite la descarga."
+            exit 0
+          fi
+
+          echo "✅ Artifact encontrado. Descargando..."
+          mkdir -p docs/qa-uat-report/generated
+          gh api -H "Accept: application/vnd.github+json" \
+            -H "Authorization: token $GH_TOKEN" \
+            -X GET "/repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip" \
+            --output artifact.zip
+
+          unzip -o artifact.zip -d docs/qa-uat-report/generated/
+          echo "📦 Artifact extraído"
 
       - name: Commit QA/UAT markdown pages
         run: |
-          git add docs/qa-uat-report/generated/*.md
-          git commit -m "docs: actualiza reportes QA/UAT desde Playwright" || echo "No hay cambios"
-          git push
-        
+          echo "📝 Buscando archivos Markdown generados..."
+
+          if ls docs/qa-uat-report/generated/*.md 1> /dev/null 2>&1; then
+            echo "✅ Archivos encontrados. Preparando commit..."
+            git config --global user.email "actions@github.com"
+            git config --global user.name "GitHub Actions"
+            git add docs/qa-uat-report/generated/*.md
+            git commit -m "docs: actualiza reportes QA/UAT desde Playwright" || echo "ℹ️ No hay cambios nuevos."
+            git push || echo "🔃 Push no necesario o ya actualizado."
+            echo "deploy_required=true" >> $GITHUB_ENV
+          else
+            echo "⚠️ No se encontraron archivos .md. Omitiendo commit y despliegue."
+            echo "deploy_required=false" >> $GITHUB_ENV
+          fi
+
+      - name: 🚀 Desplegar si hay cambios
+        if: env.deploy_required == 'true'
+        run: |
+          echo "📡 Desplegando documentación actualizada a GitHub Pages..."
+          pip install mkdocs-material
+          mkdocs gh-deploy --force
