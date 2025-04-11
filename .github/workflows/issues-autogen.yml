@@ -18,13 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Instalar dependencias
-        run: pip install pyyaml
+      - name: Set up Python Cached by requeriments 🐍
+        uses: ./.github/actions/setup-python-cached
 
       - name: Generar issues.md automáticamente
         run: python scripts/analyze_repo_for_issues.py
