@@ -16,6 +16,7 @@ jobs:
 
       - name: Set up Python Cached by requeriments 🐍
         uses: ./.github/actions/setup-python-cached
+        
       - name: Generate Sitemap from mkdocs.yml
         run: python scripts/generate_sitemap_from_mkdocs.py
 
