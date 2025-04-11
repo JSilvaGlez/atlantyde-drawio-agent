@@ -1,4 +1,6 @@
-# 🐛 Issues Técnicos y de Mejora (Generados Dinámicamente)
+# 🐛 Issues Pendientes Técnicos y de Mejora (Generados Dinámicamente)
+
+> Esta sección será reemplazada automáticamente por el script `analyze_repo_for_issues.py`.
 
 ## El export_all.sh no valida correctamente la salida
 
