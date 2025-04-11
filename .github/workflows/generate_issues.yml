@@ -33,17 +33,13 @@ jobs:
       #     git config --global user.name "JSilvaGlez"
       #     git config --global user.email "jaime.silva.glez@gmail.com"
       #     git remote set-url origin "https://x-access-token:${{ secrets.ISSUES_PAT }}@github.com/${{ github.repository }}.git"
-       
-      - name: Commit changes
+      - name: Commit y push si hay cambios
         run: |
-          git config --global user.name "JSilvaGlez"
-          git config --global user.email "jaime.silva.glez@gmail.com"
-          git remote set-url origin "https://x-access-token:${{ secrets.ISSUES_PAT }}@github.com/${{ github.repository }}.git"
-          git add docs/issues.md requirements.txt
-          git commit -m "🔁 Auto-actualización de issues and deps [skip ci] por Análisis" || echo "Sin cambios"
-          BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}")
-          echo "🔄 Push to branch: $BRANCH_NAME"
-          git push origin HEAD:$BRANCH_NAME
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add docs/issues.md
+          git commit -m "🔁 Auto-actualización de issues.md por análisis" || echo "Sin cambios"
+          git push || echo "Push no necesario"     
 
         # git config --global user.name "CI Documentation Bot"
         # git config --global user.email "ci-bot@atlantyde.org"  
