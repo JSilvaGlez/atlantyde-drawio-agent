@@ -44,12 +44,8 @@ jobs:
     needs: pre-check
     steps:
       - uses: actions/checkout@v3
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-      - name: Instalar dependencias
-        run: pip install -r requirements.txt
+      - name: "Set up Python Cached by requeriments 🐍"
+        uses: ./.github/actions/setup-python-cached
       - name: Ejecutar generadores
         run: |
           python scripts/gen_issues_md.py > docs/issues.md
