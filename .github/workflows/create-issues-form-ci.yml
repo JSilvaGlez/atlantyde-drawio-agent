@@ -1,0 +1,54 @@
+name: 📌 Crear Issues desde issues.md
+on:
+  push:
+    paths:
+     - 'docs/issues.md'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  create_issues:
+    runs-on: ubuntu-latest
+   
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Instala GitHub CLI y jq
+        run: |
+          sudo apt-get update && sudo apt-get install -y gh jq
+
+      - name: Leer y crear issues desde Markdown
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          title: '🧩 Tareas extraídas de issues.md'
+          content-filepath: docs/issues.md
+          labels: 'auto-generated, backlog'
+          assignees: ${{ github.actor }}
+        
+
+      - name: Lee y crea issues desde issues.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔍 Procesando 'docs/issues.md'..."
+
+          # Extrae títulos y descripciones entre separadores
+          awk 'BEGIN { RS="## "; FS="\n" } NR>1 { 
+            gsub(/\r/, ""); 
+            title=$1; 
+            $1=""; 
+            body=substr($0,2); 
+            print title "\n" body 
+          }' docs/issues.md |
+          while read -r title && read -r body; do
+            echo "📌 Creando issue: $title"
+            gh issue create \
+              --repo "${{ github.repository }}" \
+              --title "$title" \
+              --body "$body" \
+              --label "auto-generated"
+          done

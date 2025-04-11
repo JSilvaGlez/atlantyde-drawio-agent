@@ -1,4 +1,4 @@
-## Descripción del cambio
+# Descripción del cambio
 
 (Explica claramente qué cambios realizaste y por qué)
 
