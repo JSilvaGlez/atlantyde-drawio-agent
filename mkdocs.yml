@@ -60,7 +60,7 @@ markdown_extensions:
       use_pygments: false
       css_class: highlight
   - pymdownx.critic:
-      default: true
+      mode: accept
       no_underline: true
   - pymdownx.snippets:
       check: true
@@ -74,18 +74,12 @@ extra_css:
   - assets/css/extra.css
 
 extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/tu-org/atlantyde-diagram-agent
   generator: false
   compliance:
     sdg: ISO/IEC 27001, OWASP ASVS L2, DevSecOps Maturity
     visual_integrity: true
-  copyright:
-    year: 2025
-    holder: Atlantyde
-    holder_url: https://atlantyde.eu
-
+  
+  
 # site_name: Atlantyde Diagram Agent
 # site_author: Atlantyde
 # site_author_url: https://atlantyde.eu
