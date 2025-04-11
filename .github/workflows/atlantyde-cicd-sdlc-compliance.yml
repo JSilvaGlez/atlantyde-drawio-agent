@@ -46,10 +46,13 @@ jobs:
       - uses: actions/checkout@v3
       - name: "Set up Python Cached by requeriments 🐍"
         uses: ./.github/actions/setup-python-cached
-      - name: Ejecutar generadores
+      - name: Generar entrada de Issues
         run: |
           python scripts/gen_issues_md.py > docs/issues.md
-          python scripts/gen_audit_md.py > docs/audit.md
+      - name: Generar entrada de auditoría
+        run: |
+          python scripts/generate_audit.py
+        
       - name: Commit si hay cambios
         run: |
           git config --global user.name "CI Documentation Bot"
