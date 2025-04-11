@@ -23,13 +23,13 @@ for file in "${files[@]}"; do
   output_pdf="${file%.drawio}.pdf"
   echo "Exportando $file a $output_pdf..."
 
-  # Llamada al comando de exportación. Ajusta los parámetros según lo requerido.
-  # En este ejemplo se usa: drawio --export --format pdf --output <output_pdf> <file>
-  drawio --export --format pdf --output "$output_pdf" "$file"
-
-  if [ $? -ne 0 ]; then
-    echo "Error al exportar $file" >&2
+  if ! drawio --export --format pdf --output "$output_pdf" "$file"; then
+    echo "❌ Error al exportar $file" >&2
   else
-    echo "Exportado exitosamente: $output_pdf"
+    echo "✅ Exportado exitosamente: $output_pdf"
   fi
 done
+echo "Todos los archivos .drawio han sido exportados a PDF."
+echo "Exportación completa."
+exit 0
+# This script exports all .drawio files in the specified directory to PDF format.
