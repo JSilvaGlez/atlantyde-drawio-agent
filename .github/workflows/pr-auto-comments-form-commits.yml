@@ -18,7 +18,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 20  # Para acceder a historial de commits
+          fetch-depth: 50  # Para acceder a historial de commits
 
       - name: Get last 10 commit messages
         id: get_commits
