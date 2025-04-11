@@ -96,7 +96,7 @@ jobs:
     if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v3
-      - name: Instalar MkDocs
-        run: pip install mkdocs-material
+      - name: 'Set up Python Cached by requeriments 🐍'
+        uses: ./.github/actions/setup-python-cached
       - name: Deploy
         run: mkdocs gh-deploy --force
