@@ -1,10 +1,13 @@
 name: 🐛 Auto-generate Dynamic Issues
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-  workflow_dispatch:
+    # paths:
+    #  - ".github/workflows/issues-autogen.yml"
+    #  - "scripts/analyze_repo_for_issues.py"
 
 permissions:
   issues: write
@@ -12,7 +15,7 @@ permissions:
 
 
 jobs:
-  generate:
+  generate-issues:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
@@ -23,15 +26,17 @@ jobs:
 
       - name: Generate issues.md
         run: |
-          python scripts/gen_issues_md.py > docs/issues.md
+          python scripts/analyze_repo_for_issues.py
+        # python scripts/gen_issues_md.py > docs/issues.md
 
       - name: Commit changes
         run: |
           git config --global user.name "CI Documentation Bot"
           git config --global user.email "ci-bot@atlantyde.org"
           git add docs/issues.md requirements.txt
-          git commit -m "CI: Auto-update issues and deps [skip ci]" || echo "No changes"
+          git commit -m "🔁 Auto-actualización de issues and deps [skip ci] por Análisis" || echo "Sin cambios"
 
           BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}")
           echo "🔄 Push to branch: $BRANCH_NAME"
-          git push origin HEAD:$BRANCH_NAME
+          git push 
+        #origin HEAD:$BRANCH_NAME
