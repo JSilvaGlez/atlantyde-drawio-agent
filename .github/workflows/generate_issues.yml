@@ -34,8 +34,11 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          git config --global user.name "CI Documentation Bot"
+          git config --global user.email "ci-bot@atlantyde.org"
           git add docs/issues.md requirements.txt
-          git commit -m "Auto-update issues.md and dependencies [skip ci]" || echo "No changes"
-          git push
+          git commit -m "CI: Auto-update issues and deps [skip ci]" || echo "No changes"
+  
+          BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}")
+          echo "🔄 Push to branch: $BRANCH_NAME"
+          git push origin HEAD:$BRANCH_NAME
