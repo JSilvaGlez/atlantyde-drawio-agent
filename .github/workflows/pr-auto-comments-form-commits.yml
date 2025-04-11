@@ -1,0 +1,54 @@
+name: 🧠 PR AutoComment from Commits (Bilingual Context-Aware)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  generate-comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup GH CLI + jq
+        run: sudo apt-get update && sudo apt-get install -y gh jq
+
+      - name: Extract commit messages
+        id: extract
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COMMITS=$(gh pr view ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --json commits | jq -r '.commits[].message' | tail -n 10)
+          echo "🧾 Últimos commits:"
+          echo "$COMMITS"
+          echo "commits<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMITS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Post multilingual PR comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} --body "
+            🧠 **Resumen Inteligente de esta PR (ATLANTYDE)**
+
+            📌 _Cambios recientes basados en los últimos commits:_
+            $(echo '${{ steps.extract.outputs.commits }}' | sed 's/^/- /g')
+
+            ---
+
+            🧠 **Smart Summary of this PR (ATLANTYDE)**
+
+            📌 _Recent updates based on commit messages:_
+            $(echo '${{ steps.extract.outputs.commits }}' | sed 's/^/- /g')
+
+            ---
+
+            🔒 _Esta automatización forma parte de nuestro marco de calidad SDLC & DevSecOps ATLANTYDE._
+
+            Gracias por contribuir a una sociedad tecnológica más segura, inclusiva y abierta. 🌍"
