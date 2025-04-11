@@ -28,9 +28,9 @@ body {
 @media (max-width: 768px) {
   body {
     background-attachment: scroll;
+    background-size: auto;
   }
 }
-
 
 .md-header__inner {
   background-color: rgba(0,0,0,0.5);

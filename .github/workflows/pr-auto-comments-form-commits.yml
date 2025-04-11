@@ -24,7 +24,7 @@ jobs:
         id: get_commits
         run: |
           echo "🔍 Extrayendo últimos commits para PR..."
-          COMMIT_MESSAGES=$(git log -n 10 --pretty=format:"- %s" || echo "No commit messages found.")
+          COMMIT_MESSAGES=$(git log -n 50 --pretty=format:"- %s" || echo "No commit messages found.")
           echo "$COMMIT_MESSAGES"
           echo "commits<<EOF" >> $GITHUB_OUTPUT
           echo "$COMMIT_MESSAGES" >> $GITHUB_OUTPUT
@@ -42,13 +42,6 @@ jobs:
               🧠 **Resumen Inteligente de esta PR (ATLANTYDE)**
 
               📌 *Cambios recientes basados en los últimos commits:*
-              ${commits}
-
-              ---
-
-              🧠 **Smart Summary of this PR (ATLANTYDE)**
-
-              📌 *Recent updates based on commit messages:*
               ${commits}
 
               ---

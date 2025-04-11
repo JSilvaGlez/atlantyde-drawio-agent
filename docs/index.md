@@ -1,6 +1,21 @@
 # 🌊 Atlantyde Diagram Agent
 
-![Banner](assets/images/A_website_banner_for_Atlantyde_Diagram_Agent_featu.png)
+> **Tip:** Esta documentación se genera automáticamente y crece con cada PR. Revisa [Colabora](docs/collabora/colabora.md) para empezar.
+
+![Banner](../assets/images/banner-atlantyde.png)
+
+Automatiza, documenta y visualiza tus flujos técnicos con un enfoque de colaboración abierta.
+
+## 🚀 Navega por el conocimiento
+
+- [🧭 Primeros Pasos](getting-started/overview.md)
+- [📘 Guía de Usuario](user-guide/user-guide-overview.md)
+- [🧪 QA/UAT Reportes](qa-uat-report/generated/index.md)
+- [🔐 Seguridad](security.md)
+- [📚 Referencias Técnicas](api.md)
+- [👥 Cómo Colaborar](docs/collabora/contibuting.md)
+
+---
 
 > Automatización. Visualización. Seguridad. Colaboración.
 >
@@ -26,7 +41,7 @@
 | [User Guide](user-guide/user-guide-overview.md) | Aprende a usar las funciones clave                    |
 | [Features](user-guide/features.md) | Descubre lo que hace único a Atlantyde                |
 | [Usage](usage.md) | Guía de uso básica y avanzada                          |
-| [CI/CD](ci-cd.md) | Automatiza la integración y el despliegue             |
+| [CI/CD](colabora/ci-cd.md) | Automatiza la integración y el despliegue             |
 | [Security](security.md) | Refuerza la ciberseguridad en tus procesos         |
 | [GitHub Pages](github-pages.md) | Publica documentación viva directamente desde GitHub  |
 
@@ -40,7 +55,7 @@ Inspirado en el mito de la Atlántida, **este proyecto busca recuperar la bellez
 
 ## 🤝 ¿Quieres contribuir?
 
-Consulta la [Guía de Contribución](contributing.md) para colaborar creando documentación, mejoras técnicas o visuales.
+Consulta la [Guía de Contribución](colabora/contributing.md) para colaborar creando documentación, mejoras técnicas o visuales.
 
 ---
 

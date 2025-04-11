@@ -1,10 +1,22 @@
-name: 🛠️ CI Atlantyde SDLC Build & Test Docker
+name: 🛠️ CI Docker Atlantyde SDLC Build & Test 
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'Dockerfile'
+      - 'entrypoint.sh'
+      - 'scripts/**'
+      - 'templates/**'
+      - '.github/workflows/qa-uat-playwright.yml'
   pull_request:
+    paths:
+      - 'docs/qa-uat-report/generated/**'
+      - 'scripts/playwright_crawl.py'
+      - 'scripts/generate_sitemap.py'
+      - 'README.md'
+      - '.github/workflows/qa-uat-playwright.yml'
 
 jobs:
   build-and-test:

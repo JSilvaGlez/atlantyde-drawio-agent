@@ -4,8 +4,6 @@ cd /home/drawio/diagrams || exit 1
 exec "$@"
 
 
-
-
 # This script creates a directory for diagrams and changes the working directory to it.
 # It then executes the command passed as arguments to the script.
 # The script is intended to be used as an entrypoint for a Docker container.
