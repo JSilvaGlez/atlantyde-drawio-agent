@@ -2,7 +2,7 @@
 
 > **Tip:** Esta documentación se genera automáticamente y crece con cada PR. Revisa [Colabora](docs/collabora/colabora.md) para empezar.
 
-![Banner](../assets/images/A_website_banner_for_Atlantyde_Diagram_Agent_featu.png)
+![Banner](../assets/images/banner-atlantyde.png)
 
 Automatiza, documenta y visualiza tus flujos técnicos con un enfoque de colaboración abierta.
 
