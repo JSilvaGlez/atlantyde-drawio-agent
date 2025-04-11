@@ -1,4 +1,4 @@
-name: 📌 Crear Issues desde issues.md
+name: 🐛 Crear Issues desde issues.md
 on:
   push:
     paths:

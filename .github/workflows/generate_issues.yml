@@ -1,4 +1,4 @@
-name: Auto-generate Dynamic Issues
+name: 🐛 Auto-generate Dynamic Issues
 
 on:
   push:
