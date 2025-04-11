@@ -61,9 +61,7 @@ markdown_extensions:
       css_class: highlight
   - pymdownx.critic:
       mode: accept
-  - pymdownx.snippets:
-      check: true
-      check_all: true
+  - pymdownx.snippets
   - pymdownx.magiclink
 
 extra_css:
