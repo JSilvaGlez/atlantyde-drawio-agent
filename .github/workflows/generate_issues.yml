@@ -29,18 +29,23 @@ jobs:
           python scripts/analyze_repo_for_issues.py
         # python scripts/gen_issues_md.py > docs/issues.md
 
-      - name: Commit changes
+      - name: Configurar Git con PAT
         run: |
           git config --global user.name "CI Documentation Bot"
           git config --global user.email "ci-bot@atlantyde.org"
+          git remote set-url origin "https://x-access-token:${{ secrets.ISSUES_PAT }}@github.com/${{ github.repository }}.git"
+       
+      - name: Commit changes
+        run: |
           git add docs/issues.md requirements.txt
           git commit -m "🔁 Auto-actualización de issues and deps [skip ci] por Análisis" || echo "Sin cambios"
-
           BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}")
           echo "🔄 Push to branch: $BRANCH_NAME"
-          git remote set-url origin https://x-access-token:${secrets.ISSUES_PAT}@github.com/${{ github.repository }}.git
           git push origin HEAD:$BRANCH_NAME
 
+        # git config --global user.name "CI Documentation Bot"
+        # git config --global user.email "ci-bot@atlantyde.org"  
         #  echo "🔄 Push to branch: $BRANCH_NAME"
         #  git push 
         #  origin HEAD:$BRANCH_NAME
+        #  git remote set-url origin https://x-access-token:${secrets.ISSUES_PAT}@github.com/${{ github.repository }}.git
