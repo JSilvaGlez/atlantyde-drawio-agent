@@ -38,5 +38,9 @@ jobs:
 
           BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}")
           echo "🔄 Push to branch: $BRANCH_NAME"
-          git push 
-        #origin HEAD:$BRANCH_NAME
+          git remote set-url origin https://x-access-token:${secrets.ISSUES_PAT}@github.com/${{ github.repository }}.git
+          git push origin HEAD:$BRANCH_NAME
+
+        #  echo "🔄 Push to branch: $BRANCH_NAME"
+        #  git push 
+        #  origin HEAD:$BRANCH_NAME
