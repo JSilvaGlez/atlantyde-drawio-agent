@@ -20,15 +20,15 @@ jobs:
         with:
           fetch-depth: 20  # Para acceder a historial de commits
 
-      # - name: Get last 10 commit messages
-      #   id: get_commits
-      #   run: |
-      #     echo "🔍 Extrayendo últimos commits para PR..."
-      #     COMMIT_MESSAGES=$(git log -n 50 --pretty=format:"- %s" || echo "No commit messages found.")
-      #     echo "$COMMIT_MESSAGES"
-      #     echo "commits<<EOF" >> $GITHUB_OUTPUT
-      #     echo "$COMMIT_MESSAGES" >> $GITHUB_OUTPUT
-      #     echo "EOF" >> $GITHUB_OUTPUT
+      - name: Get last 10 commit messages
+        id: get_commits
+        run: |
+          echo "🔍 Extrayendo últimos commits para PR..."
+          COMMIT_MESSAGES=$(git log -n 50 --pretty=format:"- %s" || echo "No commit messages found.")
+          echo "$COMMIT_MESSAGES"
+          echo "commits<<EOF" >> $GITHUB_OUTPUT
+          echo "$COMMIT_MESSAGES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Comment summary in PR
         uses: actions/github-script@v7
