@@ -6,7 +6,6 @@ mkdocs-macros-plugin==1.0.5
 mkdocs-git-revision-date-localized-plugin==1.4.5
 mkdocs-include-markdown-plugin==4.0.4
 mkdocs-redirects==1.2.1
-mkdocs-material-extensions==1.1.1
 pymdown-extensions==10.3.1
 pyyaml==6.0.1
 
