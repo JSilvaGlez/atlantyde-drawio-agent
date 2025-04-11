@@ -39,9 +39,9 @@ jobs:
             const prNumber = context.payload.pull_request.number;
 
             const body = `
-              🧠 **Resumen Inteligente de esta PR (ATLANTYDE)**/**Smart Summary of this PR (ATLANTYDE)**
+              🧠 **Resumen Inteligente de esta PR (ATLANTYDE)**
 
-              📌 *Cambios recientes basados en los últimos commits:*/📌 *Recent updates based on commit messages:*
+              📌 *Cambios recientes basados en los últimos commits:*
               ${commits}
 
               ---
