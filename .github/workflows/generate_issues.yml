@@ -6,6 +6,11 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  issues: write
+  contents: write
+
+
 jobs:
   generate:
     if: github.event_name == 'push'

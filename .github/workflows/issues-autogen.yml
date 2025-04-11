@@ -7,6 +7,11 @@ on:
       - ".github/workflows/issues-autogen.yml"
       - "scripts/analyze_repo_for_issues.py"
 
+permissions:
+  issues: write
+  contents: write
+
+
 jobs:
   generate-issues:
     runs-on: ubuntu-latest
