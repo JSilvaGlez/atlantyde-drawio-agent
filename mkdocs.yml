@@ -1,28 +1,23 @@
 site_name: Atlantyde Diagram Agent
-
-site_description: >
-  Plataforma RPA para la automatización y documentación visual con DrawIO,
-  ShellCheck y GitHub Actions. Proyecto open-source impulsado por Atlantyde.
-
 site_author: Atlantyde
 site_url: https://atlantyde.github.io/atlantyde-drawio-agent/
-
-plugins:
-  - search
-
-extra_css:
-  - assets/css/extra.css
-
-
-# extra_javascript:
-#   - assets/js/extra.js
-#   - https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js
-#   - https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.0/mermaid.min.js
+repo_url: https://github.com/tu-org/atlantyde-diagram-agent
+edit_uri: edit/main/docs/
+docs_dir: docs
+site_dir: site
 
 theme:
   name: material
+  features:
+    - navigation.instant
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - toc.integrate
   logo: assets/images/logo-atlantyde.svg
-  favicon: assets/images/favicon.ico
+  favicon: assets/images/logo-atlantyde.svg
+  icon:
+    repo: fontawesome/brands/github
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -32,32 +27,315 @@ theme:
       scheme: slate
       primary: cyan
       accent: teal
-  features:
-    - navigation.tabs
 
-nav:
-  - Home: index.md
-  - Getting Started:
-      - Overview: getting-started/overview.md
-      - Installation: getting-started/installation.md
-      - Quick Start: getting-started/quick-start.md
-  - User Guide:
-      - Overview: user-guide/user-guide-overview.md
-      - Usage: usage.md
-  - Colabora: 
-      - Compliance SDLC: colabora/ci-cd.md
-      - Colabora: colabora/colabora.md
-      - Contributing: colabora/contributing.md
-  - Security: security.md
-  - GitHub Pages: github-pages.md
-  - QA/UAT Report:
-      - Overview: qa-uat-report/overview.md
-      - Reports Playwrigth: qa-uat-report/playwrigth-report.md
-      - Generated: qa-uat-report/generated/*.md
-  - Issues: issues.md
+plugins:
+  - search
+  - awesome-pages
+  - macros
+  - include-markdown
+  - redirects
+  - git-revision-date-localized:
+      type: timeago
+      fallback_to_build_date: true
+      enable_creation_date: true
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - codehilite:
+      guess_lang: false
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_generator: '!!python/name:pymdownx.emoji.to_svg'
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.highlight:
+      use_pygments: false
+      css_class: highlight
+  - pymdownx.critic:
+      mode: accept
+  - pymdownx.snippets
+  - pymdownx.magiclink
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css
+  - https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.0/mermaid.min.css
+  - assets/css/custom.css
+  - assets/css/extra.css
+
+extra:
+  generator: false
+  compliance:
+    sdg: ISO/IEC 27001, OWASP ASVS L2, DevSecOps Maturity
+    visual_integrity: true
+  
+  
+  
+# site_name: Atlantyde Diagram Agent
+# site_author: Atlantyde
+# site_author_url: https://atlantyde.eu
+# site_url: https://atlantyde.github.io/atlantyde-drawio-agent/
+# repo_url: https://github.com/tu-org/atlantyde-diagram-agent
+# site_description: >
+#   Plataforma RPA para la automatización y documentación visual con DrawIO,
+#   ShellCheck y GitHub Actions. Proyecto open-source impulsado por Atlantyde.
+# copyright: >
+#   © 2025 Atlantyde. Todos los derechos reservados.
+#   Este proyecto es de código abierto y se distribuye bajo la licencia MIT.
+# copyright_year: 2025
+# copyright_holder: Atlantyde
+# copyright_holder_url: https://atlantyde.eu
+
+# edit_uri: edit/main/docs/
+# docs_dir: docs
+# site_dir: site
+
+# # --- THEME: Profesional con logo personalizado y navegación clara
+# theme:
+#   name: material
+#   features:
+#   - navigation.instant
+#   - search.highlight
+#   - search.share
+#   - content.code.copy
+#   - toc.integrate
+#   logo: assets/images/logo-atlantyde.svg
+#   favicon: assets/images/logo-atlantyde.svg   # favicon: assets/images/favicon.ico
+#   icon:
+#     repo: fontawesome/brands/github
+#   palette:
+#     - media: "(prefers-color-scheme: light)"
+#       scheme: default
+#       primary: teal
+#       accent: light blue
+#     - media: "(prefers-color-scheme: dark)"
+#       scheme: slate
+#       primary: cyan
+#       accent: teal
+# features:
+#   - navigation.tabs
+#   - navigation.instant
+#   - search.highlight
+#   - content.code.copy
+#   - toc.integrate
+#   - content.action.edit
+#   - content.action.view
+#   - content.action.share
+#   - content.action.print
+#   - content.action.download
+#   - content.action.copy
+#   - content.action.search
+#   - content.action.expand
+#   - content.action.collapse
+#   - content.action.fullscreen
+#   - content.action.scroll
+#   - content.action.scroll_to_top
+#   - content.action.scroll_to_bottom
+#   - content.action.scroll_to_next
+#   - content.action.scroll_to_previous
+#   - content.action.scroll_to_section
+#   - content.action.scroll_to_next_section
+#   - content.action.scroll_to_previous_section
+#   - content.action.scroll_to_top_section
+#   - content.action.scroll_to_bottom_section
+#   - content.action.scroll_to_next_section
+#   - content.action.scroll_to_previous_section
+# icon:
+#   repo: fontawesome/brands/github
+
+# # --- PLUGINS DE TRAZABILIDAD Y AUTOMATIZACIÓN
+# plugins:
+#   - search
+#   - awesome-pages
+#   - macros
+#   - include-markdown
+#   - redirects
+#   - material-extensions
+#   - git-revision-date-localized:
+#       type: timeago
+#       fallback_to_build_date: true
+#       enable_creation_date: true
+#   - mkdocs-git-revision-date-localized-plugin:
+#       fallback_to_build_date: true
+#       type: timeago
+#       enable_creation_date: true
+#   - mkdocs-material-extensions:
+#       tabs:
+#         alternate_style: true
+#       admonition:
+#         icon_pack: fontawesome
+#       details:
+#         icon_pack: fontawesome
+#       tasklist:
+#         custom_checkbox: true
+
+# # --- MENÚ DE DOCUMENTACIÓN
+# nav:
+#   - Inicio: index.md
+#   - Guía Rápida: getting-started/overview.md
+#   - Manual de Usuario:
+#       - Introducción: user-guide/user-guide-overview.md
+#       - Funciones: user-guide/features.md
+#   - Uso: usage.md
+#   - CI/CD: ci-cd.md
+#   - Seguridad: security.md
+#   - GitHub Pages: github-pages.md
+#   - Issues Dinámicos: issues.md
+#   - Auditoría: audit.md
+#   - Contribuciones: contributing.md
+
+# # --- EXTENSIONES MARKDOWN PARA ESTILO Y AUDITABILIDAD
+# markdown_extensions:
+#   - admonition
+#   - toc:
+#       permalink: true
+#   - codehilite:
+#       guess_lang: false
+#   - pymdownx.superfences
+#   - pymdownx.details
+#   - pymdownx.inlinehilite
+#   - pymdownx.tabbed:
+#       alternate_style: true
+#   - pymdownx.tasklist:
+#       custom_checkbox: true
+#   - pymdownx.emoji:
+#       emoji_generator: '!!python/name:pymdownx.emoji.to_svg'
+#       # emoji_generator: 'pymdownx.emoji.to_svg'
+#   - pymdownx.caret:
+#       emoji: true
+#   - pymdownx.mark:
+#       emoji: true
+#   - pymdownx.highlight:
+#       use_pygments: false
+#       css_class: highlight
+#   - pymdownx.critic:
+#       default: true
+#       no_underline: true
+#   - pymdownx.snippets:
+#       check: true
+#       check_all: true
+#   - pymdownx.magiclink:
+
+# # --- ENLACES EXTRAS Y DATOS PARA AUDITORÍA
+# extra_css:
+#   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css
+#   - https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.0/mermaid.min.css
+#   - assets/css/custom.css
+#   - assets/css/extra.css
+
+# extra:
+#   social:
+#     - icon: fontawesome/brands/github
+#       link: https://github.com/tu-org/atlantyde-diagram-agent
+#   generator: false
+#   compliance:
+#     sdg: ISO/IEC 27001, OWASP ASVS L2, DevSecOps Maturity
+#     visual_integrity: true
 
 
 
+# # extra_javascript:
+# #   - assets/js/extra.js
+# #   - https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js
+# #   - https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.2.0/mermaid.min.js
+
+
+
+
+# # DOCUMENTACIÓN SUGERIDA (estructura):
+# # docs/
+# # ├── index.md
+# # ├── issues.md
+# # ├── audit.md
+# # ├── getting-started/overview.md
+# # ├── user-guide/user-guide-overview.md
+# # ├── user-guide/features.md
+# # ├── usage.md
+# # ├── ci-cd.md
+# # ├── security.md
+# # ├── github-pages.md
+# # └── contributing.md
+
+# # SCRIPTS DE SOPORTE
+# # scripts/gen_issues_md.py — Generador de issues dinámicos en Markdown
+# # scripts/gen_audit_md.py — Generador de reporte de auditoría en Markdown
+# # Requieren solo Python 3.9+ sin librerías externas
+
+# # requirements.txt generado dinámicamente en CI
+# # mkdocs
+# # mkdocs-material
+# # mkdocs-awesome-pages-plugin
+# # mkdocs-macros-plugin
+# # mkdocs-git-revision-date-localized-plugin
+
+# # GitHub Actions Workflow para regenerar `issues.md`
+# # .github/workflows/generate-issues.yml
+# # name: Auto-generate Dynamic Issues
+# # on:
+# #   push:
+# #     branches: [ main ]
+# #   pull_request:
+# #     branches: [ main ]
+# # jobs:
+# #   generate:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - uses: actions/checkout@v3
+# #       - name: Setup Python
+# #         uses: actions/setup-python@v4
+# #         with:
+# #           python-version: '3.10'
+# #       - name: Evaluate required dependencies
+# #         run: |
+# #           echo -e "mkdocs\nmkdocs-material\nmkdocs-awesome-pages-plugin\nmkdocs-macros-plugin\nmkdocs-git-revision-date-localized-plugin" > requirements.txt
+# #       - name: Install dependencies
+# #         run: pip install -r requirements.txt
+# #       - name: Generate issues.md
+# #         run: |
+# #           python scripts/gen_issues_md.py > docs/issues.md
+# #       - name: Commit changes
+# #         run: |
+# #           git config --global user.name "CI Documentation Bot"
+# #           git config --global user.email "ci-bot@atlantyde.org"
+# #           git add docs/issues.md requirements.txt
+# #           git commit -m "CI: Auto-update issues and deps [skip ci]" || echo "No changes"
+# #           git push
+
+# # GitHub Actions Workflow para regenerar `audit.md`
+# # .github/workflows/generate-audit.yml
+# # name: Auto-generate Audit Report
+# # on:
+# #   schedule:
+# #     - cron: '0 3 * * *'  # Diario a las 03:00 UTC
+# #   workflow_dispatch:
+# # jobs:
+# #   audit:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - uses: actions/checkout@v3
+# #       - name: Setup Python
+# #         uses: actions/setup-python@v4
+# #         with:
+# #           python-version: '3.10'
+# #       - name: Install dependencies
+# #         run: pip install -r requirements.txt
+# #       - name: Generate audit.md
+# #         run: |
+# #           python scripts/gen_audit_md.py > docs/audit.md
+# #       - name: Commit changes
+# #         run: |
+# #           git config --global user.name "CI Audit Bot"
+# #           git config --global user.email "audit-bot@atlantyde.org"
+# #           git add docs/audit.md
+# #           git commit -m "CI: Auto-update audit report [skip ci]" || echo "No changes"
+# #           git push
 
 
 

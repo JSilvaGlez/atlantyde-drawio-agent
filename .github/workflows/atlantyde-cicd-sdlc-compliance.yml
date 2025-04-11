@@ -1,0 +1,102 @@
+name: 🚀 Atlantyde Unified CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  security-events: write
+
+jobs:
+
+  pre-check:
+    name: ⚙️ Validaciones Previas (Docs/Scripts)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Validar estructura mínima del repositorio
+        run: |
+          test -f mkdocs.yml && echo "✔️ mkdocs.yml OK"
+          test -d docs && echo "✔️ docs/ OK"
+          test -f scripts/gen_issues_md.py && echo "✔️ script issues OK"
+
+  lint-scripts:
+    name: 🔍 ShellCheck en scripts
+    runs-on: ubuntu-latest
+    needs: pre-check
+    steps:
+      - uses: actions/checkout@v3
+      - name: Instalar ShellCheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+      - name: Ejecutar ShellCheck
+        run: |
+          shellcheck $(find scripts -name "*.sh") || true
+
+  generate-docs:
+    name: 📄 Generar issues.md y audit.md
+    runs-on: ubuntu-latest
+    needs: pre-check
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Set up Python Cached by requeriments 🐍"
+        uses: ./.github/actions/setup-python-cached
+      - name: Generar entrada de Issues
+        run: |
+          python scripts/gen_issues_md.py > docs/issues.md
+      - name: Generar entrada de auditoría
+        run: |
+          python scripts/generate_audit.py
+        
+      - name: Commit si hay cambios
+        run: |
+          git config --global user.name "CI Documentation Bot"
+          git config --global user.email "ci-bot@atlantyde.org"
+          git add docs/issues.md docs/audit.md || true
+          git commit -m "docs: actualiza issues/audit [auto]" || echo "Sin cambios"
+          git push || echo "Push no necesario"
+
+  sdlc-pipeline:
+    name: 🔐 SDLC Secure Suite
+    runs-on: ubuntu-latest
+    needs: [generate-docs, lint-scripts]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Dummy Unit Test
+        run: echo "Running unit tests..."
+      - name: Dummy Integration Test
+        run: echo "Running integration tests..."
+      - name: CodeQL Scan
+        uses: github/codeql-action/init@v3
+      - name: Analyze CodeQL
+        uses: github/codeql-action/analyze@v3
+
+  qa-uat:
+    name: 🔎 QA/UAT Web Suite
+    runs-on: ubuntu-latest
+    needs: sdlc-pipeline
+    steps:
+      - uses: actions/checkout@v3
+      - name: Simulación QA Headless
+        run: echo "QA crawling..."
+
+  deploy-docs:
+    name: 🚀 Deploy Documentación
+    runs-on: ubuntu-latest
+    needs: qa-uat
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Instalar MkDocs
+        run: pip install mkdocs-material
+      - name: Deploy
+        run: mkdocs gh-deploy --force

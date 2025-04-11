@@ -1,0 +1,39 @@
+name: 🐛 Auto-generate Dynamic Issues
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  generate:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install mkdocs mkdocs-material mkdocs-awesome-pages-plugin \
+              mkdocs-macros-plugin mkdocs-git-revision-date-localized-plugin
+
+      - name: Generate issues.md
+        run: |
+          python scripts/gen_issues_md.py > docs/issues.md
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "CI Documentation Bot"
+          git config --global user.email "ci-bot@atlantyde.org"
+          git add docs/issues.md requirements.txt
+          git commit -m "CI: Auto-update issues and deps [skip ci]" || echo "No changes"
+
+          BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}")
+          echo "🔄 Push to branch: $BRANCH_NAME"
+          git push origin HEAD:$BRANCH_NAME

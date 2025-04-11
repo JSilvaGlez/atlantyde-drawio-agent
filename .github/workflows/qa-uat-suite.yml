@@ -71,11 +71,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11
-
       - name: Set up Python Cached by requeriments 🐍
         uses: ./.github/actions/setup-python-cached
 
@@ -115,6 +110,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+        
+      - name: Set up Python Cached by requeriments 🐍
+        uses: ./.github/actions/setup-python-cached
 
       - name: Install jq and GitHub CLI
         run: |

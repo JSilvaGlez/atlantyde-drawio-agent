@@ -1,5 +1,13 @@
 # Documentación & Requisitos
-mkdocs-material==9.5.10
+mkdocs==1.6.1   #==1.5.3
+mkdocs-material==9.6.11
+mkdocs-awesome-pages-plugin==2.9.2
+mkdocs-macros-plugin==1.0.5
+mkdocs-git-revision-date-localized-plugin==1.4.5  #==1.2.0
+mkdocs-include-markdown-plugin==4.0.4
+mkdocs-redirects==1.2.1
+pymdown-extensions==10.5
+
 pyyaml==6.0.1
 
 # Reporting & Análisis estático 
@@ -12,3 +20,4 @@ playwright==1.43.0
 beautifulsoup4==4.12.3
 markdownify==0.11.6
 requests==2.31.0
+

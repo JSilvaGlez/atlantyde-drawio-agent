@@ -1,4 +1,4 @@
-name: 🛠️ Auto-Generar Issues Dinámicos
+name: 🐛 Auto-Generar Issues Dinámicos
 
 on:
   push:
