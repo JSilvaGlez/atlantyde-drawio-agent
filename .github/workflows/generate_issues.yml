@@ -41,7 +41,8 @@ jobs:
           git commit -m "🔁 Auto-actualización de issues and deps [skip ci] por Análisis" || echo "Sin cambios"
           BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}")
           echo "🔄 Push to branch: $BRANCH_NAME"
-          git push origin HEAD:$BRANCH_NAME
+          git push 
+        #origin HEAD:$BRANCH_NAME
 
         # git config --global user.name "CI Documentation Bot"
         # git config --global user.email "ci-bot@atlantyde.org"  
