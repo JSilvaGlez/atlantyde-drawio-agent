@@ -1,4 +1,4 @@
-name: Atlantyde Drawio Agent CI
+name: 🛠️ CI Atlantyde SDLC Build & Test Docker
 
 on:
   push:
@@ -40,3 +40,4 @@ jobs:
       with:
         name: exported-diagrams
         path: diagrams
+

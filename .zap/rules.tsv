@@ -1,0 +1,12 @@
+# ZAP Ruleset para análisis baseline de seguridad (OWASP ZAP)
+# Código	ZAP Acción	Motivo o justificación de la excepción
+
+10010	IGNORE	Permitir redirecciones sin cabecera Cache-Control (controladas por frontend)
+10015	IGNORE	Falta de cabecera Cache-Control (no crítica para prototipos o entornos dev)
+10016	IGNORE	Falta cabecera Pragma (legacy, no siempre necesario)
+10020	IGNORE	Falta de X-Frame-Options (útil en apps embebidas con sandbox)
+10021	IGNORE	Falta de X-Content-Type-Options (moderadamente riesgoso)
+10035	IGNORE	Contenido mixto bloqueado por navegador (aceptable en pruebas locales)
+
+# Añade más reglas aquí según el contexto del proyecto y la revisión comunitaria
+
