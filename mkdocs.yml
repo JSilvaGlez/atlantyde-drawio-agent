@@ -45,11 +45,17 @@ nav:
       - Overview: user-guide/user-guide-overview.md
       - Usage: usage.md
   - Colabora: 
-      - Compliance SDLC: ci-cd.md
+      - Compliance SDLC: colabora/ci-cd.md
+      - Colabora: colabora/colabora.md
+      - Contributing: colabora/contributing.md
   - Security: security.md
   - GitHub Pages: github-pages.md
   - QA/UAT Report:
       - Overview: qa-uat-report/overview.md
+      - Reports Playwrigth: qa-uat-report/playwrigth-report.md
+      - Generated: qa-uat-report/generated/*.md
+  - Issues: issues.md
+
 
 
 
