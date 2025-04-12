@@ -12,7 +12,7 @@ cp templates/base.drawio diagrams/test.drawio 2>/dev/null || echo "No se encontr
 
 # Ejecutar el contenedor con pseudo-TTY para exportar el diagrama.
 # Se utiliza 'script' para simular un TTY y mantener la opción -i.
-script -qfc 'docker run --rm -i -v "$(pwd)/diagrams:/home/drawio/diagrams" atlantyde/drawio-agent export_all.sh' /dev/null
+script -qfc "docker run --rm -i -v $(pwd)/diagrams:/home/drawio/diagrams atlantyde/drawio-agent export_all.sh" /dev/null
 
 # Verificar que se hayan generado archivos PDF en el directorio "diagrams".
 pdf_files=( diagrams/*.pdf )
