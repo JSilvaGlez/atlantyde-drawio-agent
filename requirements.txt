@@ -17,7 +17,7 @@ jinja2==3.1.6
 
 # QA/UAT & Crawling web
 playwright==1.43.0
-beautifulsoup4==4.12.3
+beautifulsoup4==4.13.3
 markdownify==0.11.6
 requests==2.32.3
 
